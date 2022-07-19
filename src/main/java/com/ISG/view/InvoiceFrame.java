@@ -5,6 +5,8 @@
 package com.ISG.view;
 
 import com.ISG.controller.ActionHandler;
+import com.ISG.model.InvoiceHeader;
+import java.util.ArrayList;
 
 /**
  *
@@ -319,4 +321,15 @@ public class InvoiceFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ActionHandler Handler;
+    private ArrayList<InvoiceHeader> inVoiceHeaderList;
+
+    public ArrayList<InvoiceHeader> getInVoiceHeaderList() {
+        return inVoiceHeaderList;
+    }
+
+    public void setInVoiceHeaderList(ArrayList<InvoiceHeader> inVoiceHeaderList) {
+        this.inVoiceHeaderList = inVoiceHeaderList;
+    }
+    
+    
 }
