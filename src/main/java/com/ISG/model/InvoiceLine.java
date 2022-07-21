@@ -10,17 +10,17 @@ package com.ISG.model;
  */
 public class InvoiceLine 
 {
-    private InvoiceHeader invoice;
+    private InvoiceHeader invoiceheader;
     private String ItemName;
     private double price;
     private int count;
 
-    public InvoiceLine(String ItemName, double price, int count, InvoiceHeader invoice)
+    public InvoiceLine(String ItemName, double price, int count, InvoiceHeader invoiceheader)
     {
         this.ItemName = ItemName;
         this.price = price;
         this.count = count;
-        this.invoice = invoice;
+        this.invoiceheader = invoiceheader;
     }
 
     public int getCount() {
@@ -32,11 +32,11 @@ public class InvoiceLine
     }
 
     public InvoiceHeader getInvoice() {
-        return invoice;
+        return invoiceheader;
     }
 
     public void setInvoice(InvoiceHeader invoice) {
-        this.invoice = invoice;
+        this.invoiceheader = invoice;
     }
 
     public String getItemName() {

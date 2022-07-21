@@ -110,7 +110,8 @@ public class ActionHandler implements ActionListener
                         //for each line
                         String[] parts = ItemsLine.split(","); //split itemsline into parts if you find "," in line in put them in array of String
                         
-                        int invID = Integer.parseInt(parts[0]); //the Invoice Number in interger form
+                        int invID = Integer.parseInt(parts[0]);//the Invoice Number in interger form
+                        
                         for(InvoiceHeader invHeaderlst: invoiceHeaderList)
                         {
                             if(invHeaderlst.getInvoiceNumber() == invID)
