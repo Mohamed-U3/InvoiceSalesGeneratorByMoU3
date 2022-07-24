@@ -55,5 +55,9 @@ public class InvoiceLine
         this.price = price;
     }
     
+    public double getItemsTotal()
+    {
+        return price * count;
+    }
     
 }

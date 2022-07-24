@@ -15,22 +15,22 @@ public class InvoiceHeader
 {
     private int InvoiceNumber;
     private String CustomerName;
-    private String Invoicedate;
+    private Date Invoicedate;
     private ArrayList<InvoiceLine> Lines;
 
-    public InvoiceHeader(int InvoiceNumber, String CustomerName, String Invoicedate)
+    public InvoiceHeader(int InvoiceNumber, String CustomerName, Date Invoicedate)
     {
         this.InvoiceNumber = InvoiceNumber;
         this.CustomerName = CustomerName;
         this.Invoicedate = Invoicedate;
     }
 
-    public String getInvoicedate() 
+    public Date getInvoicedate() 
     {
         return Invoicedate;
     }
 
-    public void setInvoicedate(String Invoicedate)
+    public void setInvoicedate(Date Invoicedate)
     {
         this.Invoicedate = Invoicedate;
     }
@@ -67,6 +67,18 @@ public class InvoiceHeader
     public void setLines(ArrayList<InvoiceLine> Lines)
     {
         this.Lines = Lines;
+    }
+
+    public double getInvoiceTotal()
+    {
+        double total = 0;
+        
+        for (int i = 0; i < getLines().size(); i++)
+        {
+            total += getLines().get(i).getItemsTotal();
+        }
+        
+        return total;
     }
     
     
