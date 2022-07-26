@@ -1,6 +1,7 @@
 package com.ISG.controller;
 
 import com.ISG.model.HeaderTableModel;
+import com.ISG.model.ITemsTableModel;
 import com.ISG.model.InvoiceHeader;
 import com.ISG.model.InvoiceLine;
 import com.ISG.view.InvoiceFrame;
@@ -80,13 +81,24 @@ public class ActionHandler implements ActionListener
 
     private void New_Invoice()
     {
+        JOptionPane.showMessageDialog(null,"For Real Time date Enter only the name","Read it First" ,JOptionPane.PLAIN_MESSAGE);
         DialogNewInvoice = new NewInvoiceDialog(Frame);
         DialogNewInvoice.setVisible(true);
     }
 
     private void Delete_Invoice()
     {
-        
+        if(Frame.getInvoiceTable().getSelectedRow() >= 0)
+        {
+            Frame.getInVoiceHeaderList().remove(Frame.getInvoiceTable().getSelectedRow());
+            Frame.getHeaderTable().fireTableDataChanged();
+            Frame.getItemsTable().setModel(new ITemsTableModel(new ArrayList<InvoiceLine>()));
+            //Labels Resetting
+            Frame.getLabelCusNameOut().setText(" ");
+            Frame.getLabelDateOut().setText(" ");
+            Frame.getLabelinvNumOut().setText(" ");
+            Frame.getLabelFullAmountOut().setText(" ");
+        }
     }
 
     private void add_Item()

@@ -8,6 +8,7 @@ import com.ISG.controller.ActionHandler;
 import com.ISG.controller.SelectionOnTableListener;
 import com.ISG.model.HeaderTableModel;
 import com.ISG.model.InvoiceHeader;
+import com.ISG.model.InvoiceLine;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -210,7 +211,7 @@ public class InvoiceFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(31, 31, 31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -321,8 +322,21 @@ public class InvoiceFrame extends javax.swing.JFrame {
     public static SimpleDateFormat DateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private ActionHandler Handler = new ActionHandler(this);
     private ArrayList<InvoiceHeader> inVoiceHeaderList;
+    private ArrayList<InvoiceLine> inVoiceItemsList; //we might not need it but what ever
     private HeaderTableModel HeaderTable;
     private SelectionOnTableListener selectionListener = new SelectionOnTableListener(this);
+    
+    
+    //InvoiceLine ArrayList --- getter and Setters --- we might not need it but what ever
+    public ArrayList<InvoiceLine> getInVoiceItemsList() {
+        return inVoiceItemsList;
+    }
+
+    public void setInVoiceItemsList(ArrayList<InvoiceLine> inVoiceItemsList) {
+        this.inVoiceItemsList = inVoiceItemsList;
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////
+    
     
     
     public ActionHandler getHandler() {

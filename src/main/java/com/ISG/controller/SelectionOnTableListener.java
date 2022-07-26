@@ -4,6 +4,7 @@
  */
 package com.ISG.controller;
 
+import com.ISG.model.HeaderTableModel;
 import com.ISG.model.ITemsTableModel;
 import com.ISG.model.InvoiceHeader;
 import com.ISG.model.InvoiceLine;
@@ -36,6 +37,7 @@ public class SelectionOnTableListener implements ListSelectionListener
             InvoiceHeader SelectedInvoiceHeader = Frame.getInVoiceHeaderList().get(Frame.getInvoiceTable().getSelectedRow());
             ArrayList<InvoiceLine> SelectedItemsList = SelectedInvoiceHeader.getLines();
             ObjItemsTableModel = new ITemsTableModel(SelectedItemsList);
+            Frame.setInVoiceItemsList(SelectedItemsList);
             Frame.getItemsTable().setModel(ObjItemsTableModel);
             //Labels Setting
             Frame.getLabelCusNameOut().setText(SelectedInvoiceHeader.getCustomerName());
@@ -45,7 +47,13 @@ public class SelectionOnTableListener implements ListSelectionListener
         }
         else
         {
-            
+            //Table Resetting
+            Frame.getItemsTable().setModel(new ITemsTableModel(new ArrayList<InvoiceLine>()));
+            //Labels Resetting
+            Frame.getLabelCusNameOut().setText(" ");
+            Frame.getLabelDateOut().setText(" ");
+            Frame.getLabelinvNumOut().setText(" ");
+            Frame.getLabelFullAmountOut().setText(" ");
         }
         
     }
