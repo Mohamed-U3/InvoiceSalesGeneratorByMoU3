@@ -4,6 +4,7 @@ import com.ISG.model.HeaderTableModel;
 import com.ISG.model.InvoiceHeader;
 import com.ISG.model.InvoiceLine;
 import com.ISG.view.InvoiceFrame;
+import com.ISG.view.NewInvoiceDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,8 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,8 @@ import javax.swing.JOptionPane;
 public class ActionHandler implements ActionListener
 {
     private InvoiceFrame Frame;
+    NewInvoiceDialog DialogNewInvoice;
+    NewInvoiceDialog DialogNewItem;
     
     public ActionHandler(InvoiceFrame f)
     {
@@ -59,13 +62,26 @@ public class ActionHandler implements ActionListener
             case "Exit":
                 System.exit(0);
                 break;
+            case "OK new Invoice":
+                OK_new_invoice();
+                break;
+            case "Cancel new Invoice":
+                Cancel_new_invoice();
+                break;
+            case "OK New Item":
+                OK_new_Item();
+                break;
+            case "Cancel new Item":
+                Cancel_new_Item();
+                break;
             default:
         }
     }
 
     private void New_Invoice()
     {
-        
+        DialogNewInvoice = new NewInvoiceDialog(Frame);
+        DialogNewInvoice.setVisible(true);
     }
 
     private void Delete_Invoice()
@@ -149,6 +165,45 @@ public class ActionHandler implements ActionListener
     }
 
     private void Save_File()
+    {
+        
+    }
+
+    private void OK_new_invoice()
+    {
+        DialogNewInvoice.setVisible(false);
+        
+        String Name = DialogNewInvoice.getTextFieldofCustName().getText();
+        String date = DialogNewInvoice.getTextFieldofInvDate().getText();
+        Date InvoiceDate = new Date();
+        try {
+            InvoiceDate = InvoiceFrame.DateFormat.parse(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(ActionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("the size = " + Frame.getInVoiceHeaderList().size());
+        InvoiceHeader inv = new InvoiceHeader((Frame.getInVoiceHeaderList().size()+1), Name, InvoiceDate);
+        Frame.getInVoiceHeaderList().add(inv);
+        Frame.getHeaderTable().fireTableDataChanged();
+        
+        
+        DialogNewInvoice.dispose();
+        DialogNewInvoice = null;
+    }
+
+    private void Cancel_new_invoice()
+    {
+        DialogNewInvoice.setVisible(false);
+        DialogNewInvoice.dispose();
+        DialogNewInvoice = null;
+    }
+
+    private void OK_new_Item()
+    {
+        
+    }
+
+    private void Cancel_new_Item()
     {
         
     }

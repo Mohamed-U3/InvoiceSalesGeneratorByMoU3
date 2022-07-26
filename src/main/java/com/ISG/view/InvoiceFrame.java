@@ -324,6 +324,11 @@ public class InvoiceFrame extends javax.swing.JFrame {
     private HeaderTableModel HeaderTable;
     private SelectionOnTableListener selectionListener = new SelectionOnTableListener(this);
     
+    
+    public ActionHandler getHandler() {
+        return Handler;
+    }
+    
     public ArrayList<InvoiceHeader> getInVoiceHeaderList() {
         return inVoiceHeaderList;
     }
@@ -379,6 +384,4 @@ public class InvoiceFrame extends javax.swing.JFrame {
     public JLabel getLabelinvNumOut() {
         return LabelinvNumOut;
     }
-    
-    
 }

@@ -28,16 +28,26 @@ public class SelectionOnTableListener implements ListSelectionListener
     @Override
     public void valueChanged(ListSelectionEvent e)
     {
+        ITemsTableModel ObjItemsTableModel;
+                
         System.out.println("the Invoice selected Row num: " + Frame.getInvoiceTable().getSelectedRow());
-        InvoiceHeader SelectedInvoiceHeader = Frame.getInVoiceHeaderList().get(Frame.getInvoiceTable().getSelectedRow());
-        ArrayList<InvoiceLine> SelectedItemsList = SelectedInvoiceHeader.getLines();
-        ITemsTableModel ObjItemsTableModel = new ITemsTableModel(SelectedItemsList);
-        Frame.getItemsTable().setModel(ObjItemsTableModel);
-        //Labels Setting
-        Frame.getLabelCusNameOut().setText(SelectedInvoiceHeader.getCustomerName());
-        Frame.getLabelDateOut().setText(""+ SelectedInvoiceHeader.getInvoicedate());
-        Frame.getLabelinvNumOut().setText(""+ SelectedInvoiceHeader.getInvoiceNumber());
-        Frame.getLabelFullAmountOut().setText(""+ SelectedInvoiceHeader.getInvoiceTotal());
+        if(Frame.getInvoiceTable().getSelectedRow() >= 0)
+        {
+            InvoiceHeader SelectedInvoiceHeader = Frame.getInVoiceHeaderList().get(Frame.getInvoiceTable().getSelectedRow());
+            ArrayList<InvoiceLine> SelectedItemsList = SelectedInvoiceHeader.getLines();
+            ObjItemsTableModel = new ITemsTableModel(SelectedItemsList);
+            Frame.getItemsTable().setModel(ObjItemsTableModel);
+            //Labels Setting
+            Frame.getLabelCusNameOut().setText(SelectedInvoiceHeader.getCustomerName());
+            Frame.getLabelDateOut().setText(""+ SelectedInvoiceHeader.getInvoicedate());
+            Frame.getLabelinvNumOut().setText(""+ SelectedInvoiceHeader.getInvoiceNumber());
+            Frame.getLabelFullAmountOut().setText(""+ SelectedInvoiceHeader.getInvoiceTotal());
+        }
+        else
+        {
+            
+        }
+        
     }
     
 }
