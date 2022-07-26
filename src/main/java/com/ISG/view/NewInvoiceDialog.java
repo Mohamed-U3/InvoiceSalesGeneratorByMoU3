@@ -40,9 +40,8 @@ public class NewInvoiceDialog extends JDialog
         BtnOk.addActionListener(Frame.getHandler());
         BtnCancel.addActionListener(Frame.getHandler());
         setLayout(new FlowLayout());
-        setSize(250,200);
+        setSize(360,150);
         setLocation(200,200);
-//        setLayout(new GridLayout(3, 1));
         
         add(LabelCustName);
         add(TextFieldofCustName);
@@ -52,8 +51,6 @@ public class NewInvoiceDialog extends JDialog
         
         add(BtnOk);
         add(BtnCancel);
-        
-//        pack();
     }
 
     public JTextField getTextFieldofCustName()

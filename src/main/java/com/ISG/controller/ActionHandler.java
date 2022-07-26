@@ -6,6 +6,7 @@ import com.ISG.model.InvoiceHeader;
 import com.ISG.model.InvoiceLine;
 import com.ISG.view.InvoiceFrame;
 import com.ISG.view.NewInvoiceDialog;
+import com.ISG.view.NewItemDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -30,7 +31,8 @@ public class ActionHandler implements ActionListener
 {
     private InvoiceFrame Frame;
     NewInvoiceDialog DialogNewInvoice;
-    NewInvoiceDialog DialogNewItem;
+    NewItemDialog DialogNewItem;
+    private int LastSelectedInvoice;
     
     public ActionHandler(InvoiceFrame f)
     {
@@ -103,7 +105,8 @@ public class ActionHandler implements ActionListener
 
     private void add_Item()
     {
-        
+        DialogNewItem = new NewItemDialog(Frame);
+        DialogNewItem.setVisible(true);
     }
 
     private void remove_Item()
@@ -212,11 +215,63 @@ public class ActionHandler implements ActionListener
 
     private void OK_new_Item()
     {
+        DialogNewItem.setVisible(false);
         
+        String ItemName = DialogNewItem.getTextFieldItemName().getText();
+        int ItemCount = Integer.parseInt(DialogNewItem.getTextFieldItemCount().getText());
+        double ItemPrice = Double.parseDouble(DialogNewItem.getTextFieldItemPrice().getText());
+        /* notes
+         * after adding the first Item I found out that you cant add another 
+         * Item utill the user select the Invoice First again that is a bug 
+         * for me so I created this simple algorithm to use the last selected 
+         * Invoice to used it over and over again and in the same time im using 
+         * it to refresh the two tables and the Labels at the same time ... I 
+         * know a lot of coding but better performance.
+         */
+        if(Frame.getInvoiceTable().getSelectedRow() >= 0)
+        {
+            LastSelectedInvoice = Frame.getInvoiceTable().getSelectedRow();
+            InvoiceHeader Header = Frame.getInVoiceHeaderList().get(Frame.getInvoiceTable().getSelectedRow());
+            InvoiceLine Line = new InvoiceLine(ItemName, ItemPrice, ItemCount, Header);
+            Header.getLines().add(Line);
+            Frame.getHeaderTable().fireTableDataChanged();
+            
+            //remaking the chanfe value function here for refreshing
+            ArrayList<InvoiceLine> SelectedItemsList = Header.getLines();
+            Frame.setInVoiceItemsList(SelectedItemsList);
+            Frame.getItemsTable().setModel(new ITemsTableModel(SelectedItemsList));
+            //Labels Setting
+            Frame.getLabelCusNameOut().setText(Header.getCustomerName());
+            Frame.getLabelDateOut().setText(""+ Header.getInvoicedate());
+            Frame.getLabelinvNumOut().setText(""+ Header.getInvoiceNumber());
+            Frame.getLabelFullAmountOut().setText(""+ Header.getInvoiceTotal());
+        }
+        else
+        {
+            InvoiceHeader Header = Frame.getInVoiceHeaderList().get(LastSelectedInvoice);
+            InvoiceLine Line = new InvoiceLine(ItemName, ItemPrice, ItemCount, Header);
+            Header.getLines().add(Line);
+            Frame.getHeaderTable().fireTableDataChanged();
+            
+            //remaking the chanfe value function here for refreshing
+            ArrayList<InvoiceLine> SelectedItemsList = Header.getLines();
+            Frame.setInVoiceItemsList(SelectedItemsList);
+            Frame.getItemsTable().setModel(new ITemsTableModel(SelectedItemsList));
+            //Labels Setting
+            Frame.getLabelCusNameOut().setText(Header.getCustomerName());
+            Frame.getLabelDateOut().setText(""+ Header.getInvoicedate());
+            Frame.getLabelinvNumOut().setText(""+ Header.getInvoiceNumber());
+            Frame.getLabelFullAmountOut().setText(""+ Header.getInvoiceTotal());
+        }
+        
+        DialogNewItem.dispose();
+        DialogNewItem = null;
     }
 
     private void Cancel_new_Item()
     {
-        
+        DialogNewItem.setVisible(false);
+        DialogNewItem.dispose();
+        DialogNewItem = null;
     }
 }

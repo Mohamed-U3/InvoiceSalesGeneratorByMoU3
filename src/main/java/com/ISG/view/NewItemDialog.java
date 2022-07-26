@@ -4,6 +4,7 @@
  */
 package com.ISG.view;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -43,24 +44,23 @@ public class NewItemDialog extends JDialog
         
         BtnOk.addActionListener(Frame.getHandler());
         BtnCancel.addActionListener(Frame.getHandler());
+        setLayout(new FlowLayout());
+        setSize(350,180);
+        setLocation(200,200);
         
-        setLayout(new GridLayout(4, 2));
-        
-        //adding Text Fields
-        add(TextFieldItemName);
-        add(TextFieldItemCount);
-        add(TextFieldItemPrice);
-        
-        //adding Labels
+        //adding Labels then TextField
         add(LabelItemName);
+        add(TextFieldItemName);
+        
         add(LabelItemCount);
+        add(TextFieldItemCount);
+        
         add(LabelItemPrice);
+        add(TextFieldItemPrice);
         
         //adding Buttons
         add(BtnOk);
         add(BtnCancel);
-        
-        pack();
     }
 
     public JTextField getTextFieldItemName() {
