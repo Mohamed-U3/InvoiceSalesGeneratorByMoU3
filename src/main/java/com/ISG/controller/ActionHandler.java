@@ -111,7 +111,14 @@ public class ActionHandler implements ActionListener
 
     private void remove_Item()
     {
-        
+        int SelectedHeader = Frame.getInvoiceTable().getSelectedRow();
+        int SelectedLine = Frame.getItemsTable().getSelectedRow();
+        if (SelectedLine >= 0)
+        {
+            Frame.getInVoiceItemsList().remove(SelectedLine);
+            Frame.getHeaderTable().fireTableDataChanged();
+            Frame.getInvoiceTable().setRowSelectionInterval(SelectedHeader, SelectedHeader);
+        }
     }
 
     private void Load_File()
