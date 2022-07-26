@@ -59,5 +59,10 @@ public class InvoiceLine
     {
         return price * count;
     }
-    
+
+    @Override
+    public String toString() 
+    {
+        return (invoiceheader.getInvoiceNumber() + "," + ItemName + "," + price + "," + count + "\n");
+    }
 }

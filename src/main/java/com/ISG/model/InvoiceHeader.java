@@ -4,6 +4,7 @@
  */
 package com.ISG.model;
 
+import static com.ISG.view.InvoiceFrame.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -80,6 +81,10 @@ public class InvoiceHeader
         
         return total;
     }
-    
-    
+
+    @Override
+    public String toString() 
+    {
+        return (InvoiceNumber + "," + DateFormat.format(Invoicedate) + "," + CustomerName + "\n");
+    }
 }

@@ -9,6 +9,8 @@ import com.ISG.view.NewInvoiceDialog;
 import com.ISG.view.NewItemDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -44,40 +46,19 @@ public class ActionHandler implements ActionListener
     {
         switch(e.getActionCommand())
         {
-            case "New Invoice":
-                New_Invoice();
-                break;
-            case "Delete Invoice":
-                Delete_Invoice();
-                break;
-            case "add Item":
-                add_Item();
-                break;
-            case "remove Item":
-                remove_Item();
-                break;
-            case "Load File":
-                Load_File();
-                break;
-            case "Save File":
-                Save_File();
-                break;
-            case "Exit":
-                System.exit(0);
-                break;
-            case "OK new Invoice":
-                OK_new_invoice();
-                break;
-            case "Cancel new Invoice":
-                Cancel_new_invoice();
-                break;
-            case "OK New Item":
-                OK_new_Item();
-                break;
-            case "Cancel new Item":
-                Cancel_new_Item();
-                break;
-            default:
+            case "New Invoice" -> New_Invoice();
+            case "Delete Invoice" -> Delete_Invoice();
+            case "add Item" -> add_Item();
+            case "remove Item" -> remove_Item();
+            case "Load File" -> Load_File();
+            case "Save File" -> Save_File();
+            case "Exit" -> System.exit(0);
+            case "OK new Invoice" -> OK_new_invoice();
+            case "Cancel new Invoice" -> Cancel_new_invoice();
+            case "OK New Item" -> OK_new_Item();
+            case "Cancel new Item" -> Cancel_new_Item();
+            default -> {
+            }
         }
     }
 
@@ -188,6 +169,59 @@ public class ActionHandler implements ActionListener
 
     private void Save_File()
     {
+        ArrayList<InvoiceHeader> InvoiceHeaderArray = Frame.getInVoiceHeaderList();
+        JFileChooser Fchooser = new JFileChooser();
+        
+        String Headers = "";
+        String Items = "";
+        for (InvoiceHeader Invoice: InvoiceHeaderArray)
+        {
+            Headers += Invoice.toString();
+            for(InvoiceLine Line: Invoice.getLines())
+            {
+                Items += Line.toString();
+            }
+        }
+        Headers = Headers.substring(0, Headers.length()-1);
+        Items = Items.substring(0, Items.length()-1);
+        
+        
+        //for saving the Header File
+        JOptionPane.showMessageDialog(null,"        Saving Header File \nEnd the name of the file with .CSV","Read it First" ,JOptionPane.PLAIN_MESSAGE);
+        int SaveResult = Fchooser.showSaveDialog(Frame);
+        if(SaveResult == JFileChooser.APPROVE_OPTION)
+        {
+            File HeaderFile = Fchooser.getSelectedFile();
+            try
+            {
+                FileWriter HFWriter = new FileWriter(HeaderFile);
+                HFWriter.write(Headers);
+                HFWriter.close();
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(ActionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        //for saving the Items File
+        JOptionPane.showMessageDialog(null,"        Now Saving Items File \nEnd the name of the file with .CSV","Read it First" ,JOptionPane.PLAIN_MESSAGE);
+        SaveResult = Fchooser.showSaveDialog(Frame); //show Dialog again to save the item file
+        if(SaveResult == JFileChooser.APPROVE_OPTION)
+        {
+            File ItemsFile = Fchooser.getSelectedFile();
+            try
+            {
+                FileWriter IFWriter = new FileWriter(ItemsFile);
+                IFWriter.write(Items);
+                IFWriter.close();
+            }
+            catch (IOException ex)
+            {
+                Logger.getLogger(ActionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         
     }
 
