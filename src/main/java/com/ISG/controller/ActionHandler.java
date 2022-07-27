@@ -74,6 +74,10 @@ public class ActionHandler implements ActionListener
         if(Frame.getInvoiceTable().getSelectedRow() >= 0)
         {
             Frame.getInVoiceHeaderList().remove(Frame.getInvoiceTable().getSelectedRow());
+            for(int i = 0; i < Frame.getInVoiceHeaderList().size(); i++)
+            {
+                Frame.getInVoiceHeaderList().get(i).setInvoiceNumber(i+1);
+            }
             Frame.getHeaderTable().fireTableDataChanged();
             Frame.getItemsTable().setModel(new ITemsTableModel(new ArrayList<InvoiceLine>()));
             //Labels Resetting
